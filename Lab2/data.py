@@ -27,6 +27,8 @@ def get_insert(table, **fields) -> str:
     for field in fields:
         if isinstance(fields[field], str) or isinstance(fields[field], datetime.datetime):
             fields[field] = f"'{fields[field]}'"
+        elif fields[field] is None:
+            fields[field] = 'null'
         else:
             fields[field] = str(fields[field])
     return f"INSERT INTO {table} ({', '.join(fields.keys())})\nVALUES ({', '.join(fields.values())});\n"
@@ -130,6 +132,6 @@ if __name__ == '__main__':
             id=i + 1,
             reservation_id=fake.random.randint(1, RESERVATIONS),
             rating=fake.random.randint(1, 10),
-            comment='TODO',
+            comment=fake.random.choice(['TODO', None]),
             created_at=fake.past_datetime()
         ))

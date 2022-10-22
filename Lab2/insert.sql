@@ -43,7 +43,7 @@ VALUES (6, 'Неплюевка');
 INSERT INTO region (id, name)
 VALUES (7, 'Забайкальск');
 INSERT INTO region (id, name)
-VALUES (8, '(Моск.)');
+VALUES (8, 'Дальнереченск');
 INSERT INTO region (id, name)
 VALUES (9, 'Туруханск');
 INSERT INTO region (id, name)
@@ -55,7 +55,7 @@ VALUES (12, 'Пышма');
 INSERT INTO region (id, name)
 VALUES (13, 'Киренск');
 INSERT INTO region (id, name)
-VALUES (14, '(Бурят.)');
+VALUES (14, 'Шоровые пруды');
 INSERT INTO region (id, name)
 VALUES (15, 'Сызрань');
 INSERT INTO region (id, name)
@@ -69,75 +69,75 @@ VALUES (19, 'Холмск');
 INSERT INTO region (id, name)
 VALUES (20, 'Кемерово');
 INSERT INTO mountain (id, region_id, name, height)
-VALUES (1, 1, 'TODO', 4380);
+VALUES (1, 1, 'Бандук', 4380);
 INSERT INTO mountain (id, region_id, name, height)
-VALUES (2, 2, 'TODO', 2973);
+VALUES (2, 2, 'Аныйтайга', 2973);
 INSERT INTO mountain (id, region_id, name, height)
-VALUES (3, 3, 'TODO', 3907);
+VALUES (3, 3, 'Дан-Бланш', 3907);
 INSERT INTO mountain (id, region_id, name, height)
-VALUES (4, 4, 'TODO', 3671);
+VALUES (4, 4, 'Нархиях', 3671);
 INSERT INTO mountain (id, region_id, name, height)
-VALUES (5, 5, 'TODO', 2189);
+VALUES (5, 5, 'Кекеш', 2189);
 INSERT INTO mountain (id, region_id, name, height)
-VALUES (6, 6, 'TODO', 4279);
+VALUES (6, 6, 'Гестола', 4279);
 INSERT INTO mountain (id, region_id, name, height)
-VALUES (7, 7, 'TODO', 2481);
+VALUES (7, 7, 'Лостун', 2481);
 INSERT INTO mountain (id, region_id, name, height)
-VALUES (8, 8, 'TODO', 2909);
+VALUES (8, 8, 'Метеген', 2909);
 INSERT INTO mountain (id, region_id, name, height)
-VALUES (9, 9, 'TODO', 2223);
+VALUES (9, 9, 'Конгур', 2223);
 INSERT INTO mountain (id, region_id, name, height)
-VALUES (10, 10, 'TODO', 2139);
+VALUES (10, 10, 'Варгилам', 2139);
 INSERT INTO difficulty (id, name, rating)
-VALUES (1, 'TODO1', 1);
+VALUES (1, 'Легкий', 1);
 INSERT INTO difficulty (id, name, rating)
-VALUES (2, 'TODO2', 2);
+VALUES (2, 'Нормальный', 2);
 INSERT INTO difficulty (id, name, rating)
-VALUES (3, 'TODO3', 3);
+VALUES (3, 'Средний', 3);
 INSERT INTO difficulty (id, name, rating)
-VALUES (4, 'TODO4', 4);
+VALUES (4, 'Тяжелый', 4);
 INSERT INTO difficulty (id, name, rating)
-VALUES (5, 'TODO5', 5);
+VALUES (5, 'Очень тяжелый', 5);
 INSERT INTO tag (id, name)
-VALUES (1, 'TODO1');
+VALUES (1, 'Экскурсионные');
 INSERT INTO tag (id, name)
-VALUES (2, 'TODO2');
+VALUES (2, 'Джип-туры');
 INSERT INTO tag (id, name)
-VALUES (3, 'TODO3');
+VALUES (3, 'Пещеры');
 INSERT INTO tag (id, name)
-VALUES (4, 'TODO4');
+VALUES (4, 'Проживание в отеле');
 INSERT INTO tag (id, name)
-VALUES (5, 'TODO5');
+VALUES (5, 'Наличие душа');
 INSERT INTO tag (id, name)
-VALUES (6, 'TODO6');
+VALUES (6, 'Наличие питания');
 INSERT INTO tag (id, name)
-VALUES (7, 'TODO7');
+VALUES (7, 'Зимние');
 INSERT INTO tag (id, name)
-VALUES (8, 'TODO8');
+VALUES (8, 'С экипировкой');
 INSERT INTO tag (id, name)
-VALUES (9, 'TODO9');
+VALUES (9, 'На вершины');
 INSERT INTO tag (id, name)
-VALUES (10, 'TODO10');
+VALUES (10, 'Ночные');
 INSERT INTO tour (id, mountain_id, difficulty_id, starting_point_id, name, description)
-VALUES (1, 5, 1, 11, 'TODO1', 'TODO');
+VALUES (1, 5, 1, 11, 'Чудеса зимнего Байкала', 'Для одних – мощное место силы, для других — удивительный природный объект с уникальной эко-системой, для третьих – священное место, овеянное легендами. Часто говорят, Зимний Байкал —  это самый большой каток в мире. С этим трудно поспорить. Но природа задумала его явно для другого.');
 INSERT INTO tour (id, mountain_id, difficulty_id, starting_point_id, name, description)
-VALUES (2, 2, 2, 12, 'TODO2', 'TODO');
+VALUES (2, 2, 2, 12, 'Красоты Дагестана', 'Вы всё ещё думаете, куда съездить, чтобы за короткое время увидеть сразу множество удивительных мест? ');
 INSERT INTO tour (id, mountain_id, difficulty_id, starting_point_id, name, description)
-VALUES (3, 3, 4, 13, 'TODO3', 'TODO');
+VALUES (3, 3, 4, 13, 'Счастье в горах', 'Счастье не за горами, счастье в горах!  Хотите хорошо отдохнуть и увидеть множество прекрасных и удивительных мест за короткое время? Тогда нам точно по пути !');
 INSERT INTO tour (id, mountain_id, difficulty_id, starting_point_id, name, description)
-VALUES (4, 7, 1, 14, 'TODO4', 'TODO');
+VALUES (4, 7, 1, 14, 'Загадки каспийских берегов', '«Загадки каспийских берегов» покорит ваше сердце навсегда! вас ожидают увлекательнейшее путешествие через пески и море, старинные крепости и невероятные высокогорные аулы! Именно в этом туре вы сможете ощутить себя настоящим первооткрывателем!');
 INSERT INTO tour (id, mountain_id, difficulty_id, starting_point_id, name, description)
-VALUES (5, 3, 5, 15, 'TODO5', 'TODO');
+VALUES (5, 3, 5, 15, 'Пленительный Северный Кавказ', 'Насыщенная программа включает природные красоты и достопримечательности Северного Кавказа.');
 INSERT INTO tour (id, mountain_id, difficulty_id, starting_point_id, name, description)
-VALUES (6, 8, 2, 16, 'TODO6', 'TODO');
+VALUES (6, 8, 2, 16, 'Мульти-каникулы в горах', 'Проведите каникулы с детьми активно, на свежем воздухе и вы обязательно вернетесь в город полными сил!');
 INSERT INTO tour (id, mountain_id, difficulty_id, starting_point_id, name, description)
-VALUES (7, 1, 4, 17, 'TODO7', 'TODO');
+VALUES (7, 1, 4, 17, 'Путешествие «Золотое кольцо Алтая»', 'Золотое кольцо Алтая – самый популярный туристический маршрут для путешественников, которые хотят открыть для себя регион Горного Алтая с комфортным передвижением на микроавтобусе и полноценным отдыхом в домиках в ночное время. ');
 INSERT INTO tour (id, mountain_id, difficulty_id, starting_point_id, name, description)
-VALUES (8, 6, 4, 18, 'TODO8', 'TODO');
+VALUES (8, 6, 4, 18, 'Впечатления на всю жизнь', 'Тур позволяет увидеть все знаковые места «Вокруг Эльбруса», включая горные группы «Перевал Актопрак», «Чегемское ущелье», сохранившие нетронутую дикую природу Кавказа. В  первый день баня, и во второй подъем на канатной дороге  на самую высокую гору в Европе, ну  а после  купание в целебных термальных источниках!');
 INSERT INTO tour (id, mountain_id, difficulty_id, starting_point_id, name, description)
-VALUES (9, 5, 1, 19, 'TODO9', 'TODO');
+VALUES (9, 5, 1, 19, 'Вдоль хребта', 'Добраться до самой высокой точки Европы, увидеть легендарные озера и водопады, а так же  влюбиться в пейзажи Кавказа и познакомиться с гостеприимством этого края.');
 INSERT INTO tour (id, mountain_id, difficulty_id, starting_point_id, name, description)
-VALUES (10, 9, 2, 20, 'TODO10', 'TODO');
+VALUES (10, 9, 2, 20, 'Впервые в Абхазию', 'В программе этого путешествия -  знаковые места маленькой кавказской республики Этот тур  идеален для тех, кто поедет в Абхазию впервые. Но даже если вы уже здесь бывали, наверняка, вы найдёте в ней что-то новое.');
 INSERT INTO tour_tag (id, tour_id, tag_id)
 VALUES (1, 1, 9);
 INSERT INTO tour_tag (id, tour_id, tag_id)
@@ -307,62 +307,62 @@ VALUES (29, 10, 11, 1, 3);
 INSERT INTO reservation (id, offer_id, user_id, reservations, status)
 VALUES (30, 11, 12, 3, 3);
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (1, 29, 8, 'TODO', '2022-10-18 23:59:08');
+VALUES (1, 29, 8, 'Всё чудесно!', '2022-10-18 23:59:08');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (2, 3, 10, 'TODO', '2022-10-10 15:00:52');
+VALUES (2, 3, 10, 'Это была моя первая поездка в горы', '2022-10-10 15:00:52');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (3, 11, 9, 'TODO', '2022-10-05 12:47:13');
+VALUES (3, 11, 9, null, '2022-10-05 12:47:13');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (4, 17, 9, 'TODO', '2022-10-12 15:11:04');
+VALUES (4, 17, 9, null, '2022-10-12 15:11:04');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (5, 17, 7, 'TODO', '2022-10-19 22:07:00');
+VALUES (5, 17, 7, 'Природа уникальная, красота нереальная.', '2022-10-19 22:07:00');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (6, 28, 7, 'TODO', '2022-10-09 19:13:43');
+VALUES (6, 28, 7, null, '2022-10-09 19:13:43');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (7, 24, 8, 'TODO', '2022-10-01 01:13:57');
+VALUES (7, 24, 8, 'Походы, поездки, полет на параплане, все было здорово!', '2022-10-01 01:13:57');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (8, 22, 2, 'TODO', '2022-10-04 23:53:38');
+VALUES (8, 22, 2, 'Очень опасное приключение!', '2022-10-04 23:53:38');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (9, 7, 10, 'TODO', '2022-10-05 18:43:19');
+VALUES (9, 7, 10, 'В одиночку было бы не так интересно, спасибо организаторам за атмосферу и ребятам за хорошую компанию', '2022-10-05 18:43:19');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (10, 26, 5, 'TODO', '2022-10-12 00:18:37');
+VALUES (10, 26, 5, null, '2022-10-12 00:18:37');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (11, 11, 1, 'TODO', '2022-09-30 16:14:54');
+VALUES (11, 11, 1, 'Всё ужасно!', '2022-09-30 16:14:54');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (12, 1, 5, 'TODO', '2022-10-11 05:17:10');
+VALUES (12, 1, 5, null, '2022-10-11 05:17:10');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (13, 13, 7, 'TODO', '2022-09-22 03:36:46');
+VALUES (13, 13, 7, 'Это была замечательная поездка с проживанием в горах.', '2022-09-22 03:36:46');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (14, 21, 6, 'TODO', '2022-10-10 06:38:12');
+VALUES (14, 21, 6, null, '2022-10-10 06:38:12');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (15, 9, 2, 'TODO', '2022-10-21 11:01:20');
+VALUES (15, 9, 2, 'Организация оставляет желать лучшего', '2022-10-21 11:01:20');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (16, 14, 2, 'TODO', '2022-09-22 14:22:37');
+VALUES (16, 14, 2, null, '2022-09-22 14:22:37');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (17, 2, 2, 'TODO', '2022-10-13 01:50:10');
+VALUES (17, 2, 2, 'Ничего удивительного не показали', '2022-10-13 01:50:10');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (18, 20, 10, 'TODO', '2022-10-18 14:34:29');
+VALUES (18, 20, 10, null, '2022-10-18 14:34:29');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (19, 16, 3, 'TODO', '2022-09-25 04:20:58');
+VALUES (19, 16, 3, 'Я думал, что тур будет интересней', '2022-09-25 04:20:58');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (20, 17, 9, 'TODO', '2022-10-20 17:30:31');
+VALUES (20, 17, 9, 'Все прошло очень хорошо и эмоции нас захлестнули', '2022-10-20 17:30:31');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (21, 17, 6, 'TODO', '2022-10-11 06:57:11');
+VALUES (21, 17, 6, null, '2022-10-11 06:57:11');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (22, 12, 3, 'TODO', '2022-09-29 09:12:27');
+VALUES (22, 12, 3, 'Не стоит своих денег', '2022-09-29 09:12:27');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (23, 8, 1, 'TODO', '2022-09-27 18:51:09');
+VALUES (23, 8, 1, null, '2022-09-27 18:51:09');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (24, 5, 2, 'TODO', '2022-10-07 02:32:12');
+VALUES (24, 5, 2, 'Не удовлетворяет описанию', '2022-10-07 02:32:12');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (25, 19, 7, 'TODO', '2022-10-15 15:12:10');
+VALUES (25, 19, 7, 'Парни с хорошим чувством юмора, веселили нас всю поездку. Знают историю и традиции и очень увлекательно было слушать!', '2022-10-15 15:12:10');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (26, 20, 10, 'TODO', '2022-10-16 05:41:25');
+VALUES (26, 20, 10, null, '2022-10-16 05:41:25');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (27, 21, 7, 'TODO', '2022-10-08 18:08:52');
+VALUES (27, 21, 7, null, '2022-10-08 18:08:52');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (28, 5, 3, 'TODO', '2022-09-28 00:29:18');
+VALUES (28, 5, 10, 'Горы - это моя любовь! Безумно красивые, воздух кристально чистый, природа сказочная. Многообразие пейзажей и мест от которых захватывает дух!', '2022-09-28 00:29:18');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (29, 8, 8, 'TODO', '2022-09-25 01:42:26');
+VALUES (29, 8, 8, null, '2022-09-25 01:42:26');
 INSERT INTO review (id, reservation_id, rating, comment, created_at)
-VALUES (30, 22, 2, 'TODO', '2022-09-30 10:46:13');
+VALUES (30, 22, 9, 'Станислав интересно рассказывал и отвечал на все вопросы. Буду рекомендовать в дальнейшем своим знакомым)', '2022-09-30 10:46:13');
