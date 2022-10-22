@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS user
     login     VARCHAR(30) UNIQUE NOT NULL,
     password  VARCHAR(60)        NOT NULL,
     full_name VARCHAR(100)       NOT NULL,
-    phone     VARCHAR(11)        NOT NULL,
+    phone     INTEGER            NOT NULL,
     role      TINYINT            NOT NULL
 );
 

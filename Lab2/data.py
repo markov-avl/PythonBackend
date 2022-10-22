@@ -42,7 +42,7 @@ if __name__ == '__main__':
             login=fake.user_name(),
             password=fake.password(),
             full_name=fake.name(),
-            phone=''.join(c for c in fake.phone_number() if c not in '()-+ '),
+            phone=int(''.join(c for c in fake.phone_number() if c not in '()-+ ')),
             role=1 if fake.random.randint(1, 100) > 90 else 2
         ))
 
