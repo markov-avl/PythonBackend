@@ -1,2 +1,5 @@
 pandas~=1.5.0
 Faker~=15.1.1
+Jinja2~=3.1.2
+matplotlib~=3.6.1
+sympy~=1.11.1
