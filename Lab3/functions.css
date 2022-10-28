@@ -11,3 +11,14 @@ th, td {
 div {
   display: -webkit-box;
 }
+
+.setter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.representaion {
+  display: flex;
+  align-items: center;
+}

@@ -86,7 +86,7 @@ def query6(con: sqlite3.Connection) -> None:
 
 def query7(con: sqlite3.Connection) -> None:
     """
-    Удалить туры, для которых ещё не создано туров.
+    Удалить горы, для которых ещё не создано туров.
     """
     con.execute("""
         DELETE FROM mountain
