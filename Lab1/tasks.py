@@ -144,7 +144,7 @@ def task7(con: sqlite3.Connection) -> None:
 
 
 def main() -> None:
-    con = sqlite3.connect("library.sqlite")
+    con = sqlite3.connect("../library.sqlite")
     tasks = [
         lambda connection: task1(connection),
         lambda connection: task2(connection, 'Петров Ф.С.'),

@@ -3,7 +3,7 @@ import sqlite3
 
 def main():
     # создаем базу данных и устанавливаем соединение с ней
-    con = sqlite3.connect("library.sqlite")
+    con = sqlite3.connect("../library.sqlite")
     # открываем файл с дампом базой двнных
     f_dump = open('library.db', 'r', encoding='utf-8-sig')
     # читаем данные из файла

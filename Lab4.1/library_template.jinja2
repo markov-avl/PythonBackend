@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Дамп базы данных</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrapper">
+    {% macro render_table(table_name, relation) %}
+        <div>
+            <p class="table__name">
+                <b>{{ table_name }} </b>
+            </p>
+            {% set n = len(relation) %}
+            <table>
+                <tr class="table__header">
+                    {% for name in relation.dtypes.index %}
+                        <th>{{ name }}</th>
+                    {% endfor %}
+                </tr>
+                <tbody>
+
+                {% for i in range(n) %}
+                    <tr class="table__{{ 'even' if i % 2 == 0 else 'odd' }}">
+                        {% for name in relation.dtypes.index %}
+                            <td> {{ relation.loc[i, name] }} </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endmacro %}
+
+    {% for dataframe in dataframes %}
+        {{ render_table(dataframe[0], dataframe[1]) }}
+    {% endfor %}
+</div>
+</body>
+</html>

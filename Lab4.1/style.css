@@ -1,0 +1,38 @@
+body {
+    max-width: 100%;
+}
+
+.wrapper {
+    display: flex;
+    width: max-content;
+    gap: 12px;
+}
+
+table, th, td {
+    border: 2px solid #e8e8e8;
+}
+
+th, td {
+    padding: 5px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.table__name {
+    display: flex;
+    justify-content: center;
+}
+
+.table__header {
+    background-color: #dedede;
+}
+
+.table__even {
+    background-color: #ffffff;
+}
+
+.table__odd {
+    background-color: #efefef;
+}

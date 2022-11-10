@@ -34,7 +34,7 @@ def task(con: sqlite3.Connection) -> None:
 
 
 def main() -> None:
-    con = sqlite3.connect("library.sqlite")
+    con = sqlite3.connect("../library.sqlite")
     task(con)
     con.close()
 
