@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Карточка читателя</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="forms">
+        <form>
+            <div class="form__filters">
+                {% for query_name, query, filters in form_groups %}
+                    <details open>
+                        <summary class="blue"><b>{{ query_name }}</b></summary>
+                        {% for name, count in query.values %}
+                            <p class="blue">
+                                <label>
+                                    <input type="checkbox" {% if name in filters %}checked{% endif %}/>
+                                </label>
+                                {{ name }} ({{ count }})
+                            </p>
+                        {% endfor %}
+                    </details>
+                {% endfor %}
+            </div>
+
+            <div class="form__buttons">
+                <input class="button" type="submit" value="Найти">
+                <input class="button" type="reset" value="Очистить">
+            </div>
+        </form>
+    </div>
+    <div class="view">
+        {% if has_filters %}
+            <form style="width:auto">
+                {% for query_name, query, filters in form_groups %}
+                    <span class="red"><b>{{ query_name }}</b>: </span>
+                    {% for filter_name in filters %}
+                        <span class="red">{{ filter_name }}</span>
+                        <button type="submit">x</button>
+                    {% endfor %}
+                {% endfor %}
+            </form>
+        {% endif %}
+        <div class="cards">
+            {% for name, authors, genre, publisher, year, amount in cards.values %}
+                <div class="card">
+                    <p class="green">Название: <b>{{ name }}</b></p>
+                    <p class="green">Авторы: <b>{{ authors }}</b></p>
+                    <p class="green">Жанр: <b>{{ genre }}</b></p>
+                    <p class="green">Издательство: <b>{{ publisher }}</b></p>
+                    <p class="green">Год_издания: <b>{{ year }}</b></p>
+                    <p class="green">Количество: <b>{{ amount }}</b></p>
+                    <button class="button">Выбрать</button>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
+</html>
