@@ -6,6 +6,10 @@ GENRES = ['Детектив', 'Приключения', 'Роман']
 AUTHORS = ['Агата Кристи', 'Жюль Верн', 'Ильф И.А.', 'Петров Е.П.']
 PUBLISHERS = ['ПИТЕР']
 
+GENRES = []
+AUTHORS = []
+PUBLISHERS = []
+
 if __name__ == '__main__':
     conn = sqlite3.connect('../library.sqlite')
     form_groups = [

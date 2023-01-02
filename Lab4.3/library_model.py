@@ -35,6 +35,8 @@ def get_cards(conn, genres: list[str], authors: list[str], publishers: list[str]
     if publishers:
         where.append(f'''p.publisher_name IN ('{"', '".join(publishers)}')''')
 
+    filters = f'WHERE {" AND ".join(where)} ' if where else ''
+
     return pd.read_sql(f'SELECT b.title AS Название,'
                        f'       GROUP_CONCAT(a.author_name, ", ") AS Авторы,'
                        f'       g.genre_name AS Жанр,'
@@ -46,6 +48,6 @@ def get_cards(conn, genres: list[str], authors: list[str], publishers: list[str]
                        f'    JOIN author a on a.author_id = ba.author_id '
                        f'    JOIN publisher p on p.publisher_id = b.publisher_id '
                        f'    JOIN genre g on g.genre_id = b.genre_id '
-                       f'WHERE {" AND ".join(where)} '
+                       f'{filters}'
                        f'GROUP BY b.book_id',
                        conn)
