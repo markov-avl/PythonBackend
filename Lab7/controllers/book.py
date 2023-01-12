@@ -1,10 +1,11 @@
-from app import app
-from flask import render_template
+from flask import render_template, Blueprint
+
+from .method import Method
+
+blueprint = Blueprint('book', __name__)
 
 
-@app.route('/book', methods=['get'])
-def book():
-    html = render_template(
-        'book.jinja2',
-    )
+@blueprint.route('/book', methods=[Method.GET])
+def index():
+    html = render_template('book.jinja2')
     return html

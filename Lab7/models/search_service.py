@@ -30,9 +30,9 @@ def get_author(conn):
 
 
 def card(conn, publishers, genres, authors):
-    publishers = convert(publishers)
-    authors = convert(authors)
-    genres = convert(genres)
+    publishers = __convert(publishers)
+    authors = __convert(authors)
+    genres = __convert(genres)
     return pd.read_sql(f'''
         SELECT title AS Название,
                group_concat(DISTINCT author_name) AS Авторы,
@@ -57,5 +57,5 @@ def card(conn, publishers, genres, authors):
     ''', conn)
 
 
-def convert(l: list):
+def __convert(l: list):
     return ', '.join(map(str, l))

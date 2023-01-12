@@ -1,16 +1,19 @@
+{% import "macros.jinja2" as macros %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Поиск</title>
-    <link rel="stylesheet" type="text/css" href="/static/CSS/search.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/CSS/style.css"/>
-    {% import "macros.jinja2" as macros %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
 </head>
 <body>
-<div class=menu>
+<div class="menu">
     <ul>
-        <li class=active><a href="/">Поиск книг</a></li>
+        <li class="active">
+            <a href="/">Поиск книг</a>
+        </li>
     </ul>
 </div>
 <div class="content">
@@ -25,8 +28,8 @@
         </form>
     </div>
     <div class="result">
-        <form action="{{ url_for('index') }}" method="get">
-            <input type="button" onclick="window.location='{{ url_for('index') }}'" value="Не выбирать книгу">
+        <form action="{{ url_for('index.index') }}" method="get">
+            <input type="button" onclick="window.location='{{ url_for('index.index') }}'" value="Не выбирать книгу">
         </form>
         <div class="chosen">
             {{ macros.render_selected(genres, sel_genres, 'Жанры', len) }}

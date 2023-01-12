@@ -1,15 +1,19 @@
-from app import app
-from flask import render_template, request
-from connection import get_db_connection
-from models.search_model import get_genre, get_author, get_publisher, card
+from flask import render_template, request, Blueprint
+
+from Lab7 import database
+from Lab7.models import search_service
+
+from .method import Method
+
+blueprint = Blueprint('search', __name__)
 
 
-@app.route('/search', methods=['get', 'post'])
-def search():
-    conn = get_db_connection()
-    df_author = get_author(conn)
-    df_publisher = get_publisher(conn)
-    df_genre = get_genre(conn)
+@blueprint.route('/search', methods=[Method.GET, Method.POST])
+def index():
+    conn = database.get_connection()
+    df_author = search_service.get_author(conn)
+    df_publisher = search_service.get_publisher(conn)
+    df_genre = search_service.get_genre(conn)
 
     if request.form.get('clear'):
         genres = []
@@ -20,7 +24,7 @@ def search():
         publishers = [int(item) for item in request.form.getlist('publisher_id')]
         authors = [int(item) for item in request.form.getlist('author_id')]
 
-    df_card = card(conn, publishers, genres, authors)
+    df_card = search_service.card(conn, publishers, genres, authors)
 
     html = render_template(
         'search.jinja2',

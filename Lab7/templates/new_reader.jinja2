@@ -1,19 +1,22 @@
+{% import "macros.jinja2" as macros %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/static/CSS/style.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
     <title>Новый читатель</title>
-    {% import "macros.jinja2" as macros %}
 </head>
 <body>
 <div class=menu>
     <ul>
-        <li class=active><a href="/">Новый читатель</a></li>
+        <li class="active">
+            <a href="/">Новый читатель</a>
+        </li>
     </ul>
 </div>
 <div class=block>
-    <form action="{{ url_for('index') }}" method="get">
+    <form action="{{ url_for('index.index') }}" method="get">
         <p>
             <label>
                 Имя читателя:
@@ -22,7 +25,7 @@
         </p>
         <p>
             <input type="submit" value="Добавить читателя">
-            <input type="button" onclick="window.location='{{ url_for('index') }}'" value="Отменить">
+            <input type="button" onclick="window.location='{{ url_for('index.index') }}'" value="Отменить">
         </p>
     </form>
 </div>

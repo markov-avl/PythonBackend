@@ -23,7 +23,7 @@ def get_book_reader(conn, reader_id):
                  JOIN book USING (book_id)
                  JOIN get_authors USING (book_id)
         WHERE reader.reader_id = :id
-        ORDER BY 3
+        ORDER BY borrow_date
     ''', conn, params={"id": reader_id})
 
 
@@ -44,7 +44,7 @@ def borrow_book(conn, book_id, reader_id) -> None:
 
     cur.executescript(f'''
         INSERT INTO book_reader(book_id, reader_id, borrow_date)
-            VALUES ({book_id}, {reader_id}, date('now'));
+            VALUES ({book_id}, {reader_id}, DATE('now'));
         UPDATE book
             SET available_numbers = available_numbers - 1
         WHERE book_id = {book_id}
@@ -59,16 +59,17 @@ def return_book(conn, book_reader_id) -> None:
     book_id = pandas.read_sql(f'''
         SELECT book_id
         FROM book_reader
-        WHERE book_reader_id = {book_reader_id}
-    ''', conn).values[0][0]
+        WHERE book_reader_id = :book_reader_id
+    ''', conn, params=dict(book_reader_id=book_reader_id)).values[0][0]
 
     cur.executescript(f'''
-    UPDATE book
+        UPDATE book
         SET available_numbers = available_numbers + 1
-    WHERE book_id = {book_id};
-    UPDATE book_reader
-        SET return_date = date('now')
-    WHERE book_reader_id = {book_reader_id}
+        WHERE book_id = {book_id};
+        
+        UPDATE book_reader
+        SET return_date = DATE('now')
+        WHERE book_reader_id = {book_reader_id}
     ''')
 
     return conn.commit()
