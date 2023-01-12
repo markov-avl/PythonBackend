@@ -16,7 +16,7 @@
         {% if subjects_select %}
             Вы изучаете дисциплины:
             {% for sub in subjects_select %}
-                <a href={{ url_for('subject', sub=sub) }}>{{ sub }}</a>{% if sub != subjects_select[-1] %}, {% endif %}
+                <a href={{ url_for('subject.index', sub=sub) }}>{{ sub }}</a>{% if sub != subjects_select[-1] %}, {% endif %}
             {% endfor %}
         {% else %}
             <p>Вы не изучаете никаких дисциплин</p>
@@ -25,7 +25,7 @@
     <p>
         Вы учавствовали в олимпиадах:
         {% for olim in olimpiads_select %}
-            <a href={{ url_for('olimpiads', olim=olim) }}>{{ olim }}</a>{% if olim != olimpiads_select[-1] %}, {% endif %}
+            <a href={{ url_for('olimpiads.index', olim=olim) }}>{{ olim }}</a>{% if olim != olimpiads_select[-1] %}, {% endif %}
         {% endfor %}
     </p>
 {% endif %}

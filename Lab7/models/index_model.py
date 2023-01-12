@@ -9,7 +9,7 @@ def get_reader(conn):
 
 def get_book_reader(conn, reader_id):
     return pandas.read_sql('''
-        WITH get_authors(book_id, authors_name) AS (SELECT book_id, GROUP_CONCAT(author_name)
+        with get_authors(book_id, authors_name) AS (SELECT book_id, GROUP_CONCAT(author_name)
                                                     FROM author
                                                              JOIN book_author USING (author_id)
                                                     GROUP BY book_id)

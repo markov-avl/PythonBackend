@@ -1,0 +1,20 @@
+{% extends 'base.jinja2' %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% from 'component/flash_messages.jinja2' import flash_messages %}
+
+{% block title %}
+    Войти
+{% endblock %}
+
+{% block body %}
+    {{ flash_messages() }}
+    <div class="d-flex flex-column align-items-center justify-content-center mw-100 mh-100">
+        <div>
+            <a class="navbar-brand" href="{{ url_for('index.index') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="" width="500">
+            </a>
+            <h2>Вход</h2>
+            {{ render_form(form, button_style='success', novalidate=True, render_kw={'style': 'width: 500px'}) }}
+        </div>
+    </div>
+{% endblock %}

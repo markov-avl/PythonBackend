@@ -28,7 +28,7 @@ def index():
 
     # выводим форму
     html = render_template(
-        'index.jinja2',
+        'page/index.jinja2',
         reader_id=session['reader_id'],
         combo_box=df_reader,
         book_reader=df_book_reader,

@@ -1,10 +1,11 @@
-import constants
-from main import app
-from flask import render_template, request
+from Lab6 import constants
+from flask import render_template, Blueprint
+
+blueprint = Blueprint('olimpiads', __name__)
 
 
-@app.route('/olimpiads/<olim>')
-def olimpiads(olim):
+@blueprint.route('/olimpiads/<olim>')
+def index(olim):
     html = render_template(
         'olimpiads.jinja2',
         olim=olim,

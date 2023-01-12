@@ -1,10 +1,11 @@
-import constants
-from main import app
-from flask import render_template
+from Lab6 import constants
+from flask import render_template, Blueprint
+
+blueprint = Blueprint('subject', __name__)
 
 
-@app.route('/subject/<sub>')
-def subject(sub):
+@blueprint.route('/subject/<sub>')
+def index(sub):
     html = render_template(
         'subject.jinja2',
         sub=sub,

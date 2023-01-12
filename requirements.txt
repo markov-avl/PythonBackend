@@ -4,3 +4,5 @@ Jinja2~=3.1.2
 matplotlib~=3.6.1
 sympy~=1.11.1
 Flask~=2.2.2
+
+WTForms~=3.0.1

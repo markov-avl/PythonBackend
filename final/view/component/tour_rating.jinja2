@@ -1,0 +1,10 @@
+{% macro tour_rating(rating) %}
+    <span class="d-flex align-items-center">
+        {% if rating is integer or rating.is_integer() %}
+            {{ rating|int }}/10
+        {% else %}
+            {{ rating|round(2) }}/10
+        {% endif %}
+        <img class="ms-1" src="{{ url_for('static', filename='images/star.svg') }}" alt="" width="24">
+    </span>
+{% endmacro %}

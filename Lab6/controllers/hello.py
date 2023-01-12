@@ -1,16 +1,16 @@
-import constants
-from main import app
-from flask import render_template, request
+from Lab6 import constants
+from flask import render_template, request, Blueprint
+
+blueprint = Blueprint('hello', __name__)
 
 
-@app.route('/hello', methods=['GET'])
-def hello():
+@blueprint.route('/hello', methods=['GET'])
+def index():
     gender = request.values.get('gender')
     name = request.values.get('username')
     program_id = request.values.get('program')
     subject_id = request.values.getlist('subject[]')
     olimpiads_id = request.values.getlist('olimpiads[]')
-    olimpiads_select = list(map(lambda i: constants.olimpiads[int(i)], olimpiads_id))
     olimpiads_select = [constants.olimpiads[int(i)] for i in olimpiads_id]
     subjects_select = [constants.subjects[int(i)] for i in subject_id]
 

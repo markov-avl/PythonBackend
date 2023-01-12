@@ -1,0 +1,31 @@
+{% macro photo_carousel() %}
+    <div id="photoCarousel" class="carousel carousel-dark slide" style="z-index: 0">
+        <div class="carousel-indicators">
+            {% for i in range(3) %}
+                <button type="button"
+                        data-bs-target="#photoCarousel"
+                        data-bs-slide-to="{{ i }}"
+                        {% if not i %}class="active"{% endif %}
+                        {% if not i %}aria-current="true"{% endif %}>
+                </button>
+            {% endfor %}
+        </div>
+        <div class="carousel-inner">
+            {% for i in range(3) %}
+                <div class="carousel-item {% if not i %}active{% endif %}">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" class="d-block centered" alt="">
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+{% endmacro %}

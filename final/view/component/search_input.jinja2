@@ -1,0 +1,8 @@
+{% macro search_input(input) %}
+    <input class="form-control me-2"
+           type="search"
+           name="{{ input.name }}"
+           placeholder="{{ input.label.text }}"
+           aria-label="Search"
+           value="{{ input.data or '' }}">
+{% endmacro %}

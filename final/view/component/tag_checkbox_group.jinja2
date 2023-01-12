@@ -1,0 +1,25 @@
+{% macro tag_checkbox_group(tags, checkbox_group) %}
+    <p class="dropdown-toggle"
+       data-bs-toggle="collapse"
+       href="#{{ checkbox_group.name }}Collapse"
+       role="button"
+       aria-expanded="true"
+       aria-controls="{{ checkbox_group.name }}Collapse">
+        {{ checkbox_group.label.text }}
+    </p>
+    <div id="{{ checkbox_group.name }}Collapse" class="collapse multi-collapse show">
+        {% for tag in tags %}
+            <div class="form-check">
+                <input id="{{ checkbox_group.name }}Check{{ tag.id }}"
+                       class="me-1 form-check-input"
+                       type="checkbox"
+                       value="{{ tag.id }}"
+                       name="{{ checkbox_group.name }}"
+                        {% if tag.id in checkbox_group.data %} checked {% endif %}>
+                <label for="{{ checkbox_group.name }}Check{{ tag.id }}">
+                    {{ tag.name }} ({{ tag.count }})
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}

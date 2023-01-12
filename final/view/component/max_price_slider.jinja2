@@ -1,0 +1,16 @@
+{% from 'component/price.jinja2' import price %}
+
+{% macro max_price_slider(min_price, max_price, slider) %}
+    <label class="form-label" for="{{ slider.name }}Range">{{ slider.label.text }}:
+        <output id="{{ slider.name }}Value">{{ price(slider.data or max_price) }}</output>
+    </label>
+    <input id="{{ slider.name }}Range"
+           class="form-range"
+           type="range"
+           name="{{ slider.name }}"
+           min="{{ min_price }}"
+           max="{{ max_price }}"
+           step="1000"
+           value="{{ slider.data or max_price }}"
+           oninput="document.getElementById('{{ slider.name }}Value').value = (+this.value).toFixed(2) + ' ₽'">
+{% endmacro %}

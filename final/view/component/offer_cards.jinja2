@@ -1,0 +1,48 @@
+{% from 'component/tour_rating.jinja2' import tour_rating %}
+{% from 'component/tour_days.jinja2' import tour_days %}
+{% from 'component/price.jinja2' import price %}
+
+{% macro offer_cards(offers) %}
+    <div class="w-75">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for offer in offers %}
+                <div class="col">
+                    <div class="card">
+                        <div class="text-end p-2 d-flex align-items-center justify-content-between">
+                            <span class="badge text-bg-{{ offer.difficulty_color }}">{{ offer.difficulty }}</span>
+                            {% if offer.rating %}
+                                {{ tour_rating(offer.rating) }}
+                            {% else %}
+                                <span class="badge text-bg-secondary">без оценки пользователей</span>
+                            {% endif %}
+                        </div>
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ offer.name }}</h5>
+                        </div>
+                        <a class="stretched-link" href="{{ url_for('offers.offer_by_id', id_=offer.id) }}"></a>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">{{ offer.tags|capitalize }}</li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Гора:</span>
+                                <span>{{ offer.mountain }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Дни тура:</span>
+                                {{ tour_days(offer.starting_at, offer.ending_at) }}
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Свободные места:</span>
+                                <span>{{ offer.available_reservations }}/{{ offer.max_reservations }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Цена за человека:</span>
+                                <span class="fs-5">{{ price(offer.price) }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}

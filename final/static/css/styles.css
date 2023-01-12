@@ -1,0 +1,21 @@
+.centered {
+    max-width: 1280px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    input[type='range']::-webkit-slider-thumb {
+        background: var(--bs-success) !important;
+        box-shadow: var(--bs-success) !important;
+    }
+
+    input[type='checkbox']:checked {
+        background-color: var(--bs-success) !important;
+        border-color: var(--bs-success) !important;
+        box-shadow: var(--bs-success) !important;
+    }
+
+    input[type='checkbox'], input[type='checkbox'] {
+        border-color: var(--bs-success) !important;
+        box-shadow: var(--bs-success) !important;
+    }
+}

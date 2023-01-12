@@ -107,7 +107,7 @@ def query8(con: sqlite3.Connection) -> None:
 
 
 def main() -> None:
-    con = sqlite3.connect("climbing-club.sqlite")
+    con = sqlite3.connect("../final/climbing-club.sqlite")
     queries = [
         query1,
         query2,

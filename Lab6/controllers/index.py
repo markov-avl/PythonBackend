@@ -1,10 +1,10 @@
-from flask import render_template
+from Lab6 import constants
+from flask import render_template, Blueprint
 
-import constants
-from main import app
+blueprint = Blueprint('index', __name__)
 
 
-@app.route('/', methods=['GET'])
+@blueprint.route('/', methods=['GET'])
 def index():
     html = render_template(
         'index.jinja2',

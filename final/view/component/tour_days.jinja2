@@ -1,0 +1,6 @@
+{% macro tour_days(starting_at, ending_at) %}
+    <span>
+        {{ starting_at.strftime('%Y.%m.%d') }} — {{ ending_at.strftime('%Y.%m.%d') }}
+        ({{ (ending_at - starting_at).days }} дн.)
+    </span>
+{% endmacro %}

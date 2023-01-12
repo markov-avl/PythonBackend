@@ -1,0 +1,63 @@
+{% extends 'base.jinja2' %}
+{% from 'component/header.jinja2' import header %}
+{% from 'component/search_input.jinja2' import search_input %}
+{% from 'component/tag_checkbox_group.jinja2' import tag_checkbox_group %}
+{% from 'component/difficulty_checkbox_group.jinja2' import difficulty_checkbox_group %}
+{% from 'component/min_rating_slider.jinja2' import min_rating_slider %}
+{% from 'component/max_price_slider.jinja2' import max_price_slider %}
+{% from 'component/available_reservations_slider.jinja2' import available_reservations_slider %}
+{% from 'component/offer_cards.jinja2' import offer_cards %}
+
+{% block title %}
+    Альпинистский клуб
+{% endblock %}
+
+{% block body %}
+    {{ header() }}
+
+    <div class="d-flex justify-content-between m-0 m-auto pb-3 mt-3 gap-3 centered">
+        <form class="position-sticky top-0 w-25" action="" method="get">
+            {{ search_input(filter_form.search) }}
+            <hr/>
+
+            {{ tag_checkbox_group(tags, filter_form.tags) }}
+            <hr/>
+
+            {{ difficulty_checkbox_group(difficulties, filter_form.difficulties) }}
+            <hr/>
+
+            {{ min_rating_slider(1, 10, filter_form.min_rating) }}
+            <hr/>
+
+            {% if min_price %}
+                {{ max_price_slider(min_price, max_price, filter_form.max_price) }}
+                <hr/>
+            {% endif %}
+
+
+            {% if min_available_reservations %}
+                {{ available_reservations_slider(
+                       min_available_reservations,
+                       max_available_reservations,
+                       filter_form.min_available_reservations
+                   ) }}
+                <hr/>
+            {% endif %}
+
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-success w-100" type="submit">Применить</button>
+                <a class="btn btn-outline-success w-100" type="reset" href="{{ url_for('index.index') }}">Очистить</a>
+            </div>
+        </form>
+
+        {% if offers %}
+            {{ offer_cards(offers) }}
+        {% else %}
+
+            <div class="w-75 d-flex justify-content-center align-items-center">
+                <p class="fs-1 text-center">Мы не смогли ничего найти по вашему запросу</p>
+                <img src="{{ url_for('static', filename='images/sad-smiley.svg') }}" alt="" width="300">
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

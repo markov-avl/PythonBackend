@@ -1,0 +1,103 @@
+{% extends 'base.jinja2' %}
+{% from 'component/header.jinja2' import header %}
+{% from 'component/photo_carousel.jinja2' import photo_carousel %}
+{% from 'component/available_reservations_slider.jinja2' import available_reservations_slider %}
+{% from 'component/tour_days.jinja2' import tour_days %}
+{% from 'component/tour_rating.jinja2' import tour_rating %}
+{% from 'component/price.jinja2' import price %}
+
+{% block title %}
+    {{ offer.name }}
+{% endblock %}
+
+{% block body %}
+    {{ header() }}
+
+    <div class="m-auto d-flex flex-column justify-content-center centered">
+        {{ photo_carousel() }}
+
+        <h2 class="pt-2 pb-2 m-0">{{ offer.name }}</h2>
+
+        <div class="d-flex justify-content-between ms-0 me-0 m-auto pb-3 mt-3 gap-5">
+            <form class="d-flex flex-column w-25 gap-2" method="post">
+                {% if offer.available_reservations %}
+                    {{ available_reservations_slider(1, offer.available_reservations, form.available_reservations, offer.price) }}
+                    <div class="d-flex justify-content-between">
+                        <h5 class="m-0">Сумма:</h5>
+                        <h4 class="m-0">
+                            <output id="sumValue">{{ price(offer.price) }}</output>
+                        </h4>
+                    </div>
+                    {% if session['login'] %}
+                        <button class="btn btn-success">Забронировать</button>
+                    {% else %}
+                        <div class="alert alert-warning text-center" role="alert">
+                            Для бронирования Вам необходимо войти в аккаунт
+                        </div>
+                        <a class="btn btn-success"
+                           href="{{ url_for('security.login', redirect=request.path) }}">Вход</a>
+                        <a class="btn btn-success"
+                           href="{{ url_for('security.register', redirect=request.path) }}">Регистрация</a>
+                    {% endif %}
+                {% else %}
+                    <div class="alert alert-warning text-center" role="alert">
+                        Предложение не является активным
+                    </div>
+                {% endif %}
+            </form>
+            <div class="w-75">
+                <h6 class="opacity-50">Описание</h6>
+                <p class="fs-5">{{ offer.description }}</p>
+
+                <h6 class="opacity-50">Гора</h6>
+                <p class="fs-5">{{ offer.mountain }} ({{ offer.mountain_height }} м.)</p>
+
+                <h6 class="opacity-50">Место сборов</h6>
+                <p class="fs-5">{{ offer.starting_point }}</p>
+
+                <h6 class="opacity-50">Дни тура</h6>
+                <p class="fs-5">{{ tour_days(offer.starting_at, offer.ending_at) }}</p>
+
+                <h6 class="opacity-50">Максимальное количество людей в группе</h6>
+                <p class="fs-5">{{ offer.max_reservations }}</p>
+
+                <h6 class="opacity-50">Тэги</h6>
+                <p class="fs-5">{{ offer.tags|capitalize }}</p>
+
+                <h6 class="opacity-50">Сложность</h6>
+                <p class="fs-5">
+                    <span class="badge rounded-pill text-bg-{{ offer.difficulty_color }}">
+                        {{ offer.difficulty_rating }}/{{ max_difficulty_rating }}
+                    </span>
+                    {{ offer.difficulty }}
+                </p>
+
+                {% if reviews %}
+                    <div class="d-flex justify-content-between pt-2 pb-2">
+                        <h4 class="pt-2 pb-2 m-0">Отзывы тура</h4>
+                        <h4 class="pt-2 pb-2 m-0">{{ tour_rating(offer.rating) }}</h4>
+                    </div>
+
+                    {% for review in reviews %}
+                        <div>
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="card-title">{{ review.user_full_name }}</h6>
+                                        <h6 class="card-title">{{ tour_rating(review.rating) }}</h6>
+                                    </div>
+                                    {% if review.comment %}
+                                        <p class="card-text">{{ review.comment }}</p>
+                                    {% endif %}
+                                    <p class="card-text">
+                                        <small class="text-muted">{{ review.created_at }}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

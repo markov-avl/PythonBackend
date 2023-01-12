@@ -1,0 +1,17 @@
+{% macro available_reservations_slider(min_available_reservations, max_available_reservations, slider, sum=0.0) %}
+    <label class="form-label" for="{{ slider.name }}Range">{{ slider.label.text }}:
+        <output id="{{ slider.name }}Value">{{ slider.data or min_available_reservations }}</output>
+    </label>
+    <input id="{{ slider.name }}Range"
+           class="form-range"
+           type="range"
+           name="{{ slider.name }}"
+           min="{{ min_available_reservations }}"
+           max="{{ max_available_reservations }}"
+           step="1"
+           value="{{ slider.data or min_available_reservations }}"
+           oninput="
+                   document.getElementById('{{ slider.name }}Value').value = this.value;
+                   document.getElementById('sumValue').value = ({{ sum }} * this.value).toFixed(2) + ' ₽';
+                   ">
+{% endmacro %}

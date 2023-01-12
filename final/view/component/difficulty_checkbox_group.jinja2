@@ -1,0 +1,25 @@
+{% macro difficulty_checkbox_group(difficulties, checkbox_group) %}
+    <p class="dropdown-toggle"
+       data-bs-toggle="collapse"
+       href="#{{ checkbox_group.name }}Collapse"
+       role="button"
+       aria-expanded="true"
+       aria-controls="{{ checkbox_group.name }}Collapse">
+        {{ checkbox_group.label.text }}
+    </p>
+    <div id="{{ checkbox_group.name }}Collapse" class="collapse multi-collapse show">
+        {% for difficulty in difficulties %}
+            <div class="form-check">
+                <input id="{{ checkbox_group.name }}Check{{ difficulty.id }}"
+                       class="me-1 form-check-input"
+                       type="checkbox"
+                       value="{{ difficulty.id }}"
+                       name="{{ checkbox_group.name }}"
+                        {% if difficulty.id in checkbox_group.data %} checked {% endif %}>
+                <label for="{{ checkbox_group.name }}Check{{ difficulty.id }}">
+                    {{ difficulty.name }} ({{ difficulty.count }})
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}
