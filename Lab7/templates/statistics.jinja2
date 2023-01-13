@@ -1,3 +1,5 @@
+{% from 'macros.jinja2' import render_menu %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,18 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
 </head>
 <body>
-<div class="menu">
-    <ul>
-        <li>
-            <a href={{ url_for('index.index') }}>Читатель</a>
-        </li>
-        <li>
-            <a href={{ url_for('book.index') }}>Книги</a>
-        </li>
-        <li class="active">
-            <a href={{ url_for('statistics.index') }}>Статистика</a>
-        </li>
-    </ul>
-</div>
+{{ render_menu(2) }}
+<p>Статистика!</p>
 </body>
 </html>

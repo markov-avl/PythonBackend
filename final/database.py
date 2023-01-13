@@ -1,5 +1,5 @@
 import sqlite3
 
 
-def get_db_connection():
+def get_connection():
     return sqlite3.connect('./climbing-club.sqlite')

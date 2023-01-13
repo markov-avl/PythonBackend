@@ -1,2 +1,2 @@
-from . import index_service
-from . import search_service
+from .reader_service import ReaderService
+from .search_service import SearchService

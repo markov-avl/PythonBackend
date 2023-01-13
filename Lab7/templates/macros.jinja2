@@ -1,34 +1,29 @@
 <!DOCTYPE html>
-{% macro render_table(table_name, relation, id, len) %}
+{% macro render_table(table_name, header, data, id, len) %}
     <p>
-        <b>{{ table_name }} </b>
+        <b>{{ table_name }}</b>
     </p>
-    {% set n = len(relation) %}
     <table>
         <tr style="background-color: rgb(242, 242, 242);">
-            {% for name in relation.dtypes.index %}
-                {% if name != id %}
-                    <th>{{ name }}</th>
-                {% endif %}
+            {% for name in header %}
+                <th>{{ name }}</th>
             {% endfor %}
         </tr>
         <tbody>
 
-        {% for i in range(n) %}
+        {% for i in range(len(data)) %}
             <tr>
-                {% for name in relation.dtypes.index %}
-                    {% if name != id %}
-                        <td>
-                            {% if not relation.loc[i, name] %}
-                                <form action="" method="get">
-                                    <input type="hidden" name="return" value="{{ relation.loc[i, 'book_reader_id']}}">
-                                    <input type="submit" value="Сдать">
-                                </form>
-                            {% else %}
-                                {{ relation.loc[i, name] }}
-                            {% endif %}
-                        </td>
-                    {% endif %}
+                {% for record in data %}
+                    <td>
+                        {% if not data[i][3] %}
+                            <form action="" method="get">
+                                <input type="hidden" name="return" value="{{ data[i][4] }}">
+                                <input type="submit" value="Сдать">
+                            </form>
+                        {% else %}
+                            {{ data[i][3] }}
+                        {% endif %}
+                    </td>
                 {% endfor %}
             </tr>
         {% endfor %}
@@ -36,40 +31,26 @@
     </table>
 {% endmacro %}
 
-{% macro render_readers(combo_box, reader_id, len) %}
+{% macro render_readers(readers, reader_id, len) %}
     <select name="reader" required>
-        {% set n = len(combo_box) %}
-        <!-- формируем строки списка (каждое значение поля
-        reader_name - строка списка) в виде
-        <option [selected] value = код_читателя> ФИО </option>
-        -->
-        {% for i in range(n) %}
-            {% set id_r = combo_box.loc[i, 'reader_id'] %}
-            <!-- атрибут value элемента будет совпадать с id читателя -->
-            {% if id_r == reader_id %}
-                <option selected value={{ id_r }}>
-                    {% else %}
-                <option value={{ id_r }}>
-            {% endif %}
-        {{ combo_box.loc[i, 'reader_name'] }}
-        </option>
+        {% for reader in readers %}
+            <option value="{{ reader[0] }}"
+                    {% if reader[0] == reader_id %}selected{% endif %}>{{ reader[1] }}</option>
         {% endfor %}
     </select>
 {% endmacro %}
 
-{% macro render_filters(name, category, selected, len) %}
-    {% set n = len(category) %}
+{% macro render_filters(name, categories, selected, len) %}
     <fieldset>
         <legend>{{ name }}</legend>
-        {% for i in range(n) %}
+        {% for category in categories %}
             <div class="checkbox-wrapper">
-                {% set id_r = category.loc[i, category.columns[0]] %}
                 <input type="checkbox"
-                       name="{{ category.columns[0] }}"
-                       value="{{ category.loc[i, category.columns[0]] }}"
+                       name="{{ categories[0] }}"
+                       value="{{ categories[i][categories[0]] }}"
                        {% if id_r in selected %}checked{% endif %}>
                 <label>
-                    {{ category.loc[i, category.columns[1]] }} ({{ category.loc[i, category.columns[2]] }})
+                    {{ categories[i][categories[1]] }} ({{ categories[i][categories[2]] }})
                 </label>
             </div>
         {% endfor %}
@@ -77,23 +58,18 @@
 {% endmacro %}
 
 {% macro render_cards(card, len) %}
-    {% set n = len(card) %}
-    {% for i in range(n) %}
+    {% for i in range(len(card)) %}
         <div class="card">
-            {% for name in card.dtypes.index %}
-                {% if name != 'ID' %}
-                    <p>{{ name }}: <b>{{ card.loc[i, name] }}</b></p>
-                {% endif %}
+            {% for name in card %}
+                <p>{{ name }}: <b>{{ card[i][name] }}</b></p>
             {% endfor %}
             <div class="button-wrapper">
-                <form action="{{ url_for('index') }}" method="get">
-                    <input type="submit" value="Выбрать"
-                            {% if card.loc[i, 'Количество'] == 0 %}
-                           disabled
-                            {% endif %}
-                    >
+                <form action="{{ url_for('index.index') }}" method="get">
+                    <input type="submit"
+                           value="Выбрать"
+                           {% if card[i]['Количество'] == 0 %}disabled{% endif %}>
                     <label>
-                        <input hidden type="text" name="book" value="{{ card.loc[i, 'ID'] }}">
+                        <input hidden type="text" name="book" value="{{ card[i]['ID'] }}">
                     </label>
                 </form>
             </div>
@@ -102,10 +78,9 @@
 {% endmacro %}
 
 {% macro render_selected(relation, sel, name, len) %}
-    {% if len(sel) != 0 %}
+    {% if sel %}
         <p>{{ name }}:
-            {% set n = len(relation) %}
-            {% for i in range(n) %}
+            {% for i in range(len(relation)) %}
                 {% set id_r = relation.loc[i, relation.columns[0]] %}
                 {% if id_r in sel %}
                     {% if id_r == sel[-1] %}
@@ -117,4 +92,20 @@
             {% endfor %}
         </p>
     {% endif %}
+{% endmacro %}
+
+{% macro render_menu(selected) %}
+    <div class="menu">
+        <ul>
+            <li {% if selected == 0 %}class="active"{% endif %}>
+                <a href={{ url_for('index.index') }}>Читатель</a>
+            </li>
+            <li {% if selected == 1 %}class="active"{% endif %}>
+                <a href={{ url_for('book.index') }}>Книги</a>
+            </li>
+            <li {% if selected == 2 %}class="active"{% endif %}>
+                <a href={{ url_for('statistics.index') }}>Статистика</a>
+            </li>
+        </ul>
+    </div>
 {% endmacro %}

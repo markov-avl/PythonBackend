@@ -8,7 +8,7 @@
     <title>Новый читатель</title>
 </head>
 <body>
-<div class=menu>
+<div class="menu">
     <ul>
         <li class="active">
             <a href="/">Новый читатель</a>
@@ -17,16 +17,12 @@
 </div>
 <div class=block>
     <form action="{{ url_for('index.index') }}" method="get">
-        <p>
-            <label>
-                Имя читателя:
-                <input type="text" name="new_reader" required>
-            </label>
-        </p>
-        <p>
-            <input type="submit" value="Добавить читателя">
-            <input type="button" onclick="window.location='{{ url_for('index.index') }}'" value="Отменить">
-        </p>
+        <label>
+            Имя читателя:
+            <input type="text" name="new_reader" required>
+        </label>
+        <input type="submit" value="Добавить читателя">
+        <input type="button" onclick="window.location='{{ url_for('index.index') }}'" value="Отменить">
     </form>
 </div>
 </body>
