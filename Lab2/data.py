@@ -107,7 +107,7 @@ if __name__ == '__main__':
             fake.random.randint(10, 16),
         )
         append_to_insert_sql(get_insert(
-            'offer',
+            'offers',
             id=i + 1,
             tour_id=fake.random.randint(1, TOURS),
             starting_at=starting_at,

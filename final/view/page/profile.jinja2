@@ -1,0 +1,207 @@
+{% extends 'base.jinja2' %}
+{% from 'component/header.jinja2' import header %}
+{% from 'component/photo_carousel.jinja2' import photo_carousel %}
+{% from 'component/available_reservations_slider.jinja2' import available_reservations_slider %}
+{% from 'component/tour_days.jinja2' import tour_days %}
+{% from 'component/tour_rating.jinja2' import tour_rating %}
+{% from 'component/price.jinja2' import price %}
+{% from 'component/phone.jinja2' import phone %}
+
+{% block title %}
+    Профиль
+{% endblock %}
+
+{% block body %}
+    {{ header() }}
+
+    <div class="m-auto d-flex flex-column justify-content-center centered">
+        <div class="d-flex justify-content-between ms-0 me-0 m-auto pb-3 mt-3 gap-5">
+            <form class="d-flex flex-column w-25 gap-2" method="post">
+                <img src="{{ url_for('static', filename='images/profile.svg') }}" alt="">
+
+                <label for="phoneInput">Телефон</label>
+                <input id="phoneInput"
+                       class="form-control me-2"
+                       name="phone"
+                       type="tel"
+                       placeholder="+7 (999) 999-99-99"
+                       value="{{ phone(user.phone) }}">
+
+                <label for="loginInput">Логин</label>
+                <input id="loginInput"
+                       class="form-control me-2"
+                       name="login"
+                       type="text"
+                       placeholder="username"
+                       value="{{ user.login }}">
+
+                <label for="currentPasswordInput">Текущий пароль</label>
+                <input id="currentPasswordInput"
+                       class="form-control me-2"
+                       name="login"
+                       type="password">
+
+                <label for="newPasswordInput">Новый пароль</label>
+                <input id="newPasswordInput"
+                       class="form-control me-2"
+                       name="newPassword"
+                       type="password">
+
+                <label for="confirmNewPasswordInput">Повторите новый пароль</label>
+                <input id="confirmNewPasswordInput"
+                       class="form-control me-2"
+                       name="repeatNewPassword"
+                       type="password">
+
+                <a class="btn btn-success mt-2"
+                   href="{{ url_for('index.index', redirect=request.path) }}">Сохранить</a>
+            </form>
+
+            <div class="w-75">
+                {% if current_reservations %}
+                    <h4 class="mb-3">Текущие бронирования</h4>
+                    {% for current_reservation in current_reservations %}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <a class="link-dark card-title fs-5"
+                                       href="{{ url_for('offers.offer_by_id', id_=current_reservation.offer_id) }}">{{ current_reservation.tour_name }}</a>
+                                    <div class="d-flex flex-column">
+                                        <div>
+                                            <span class="float-end badge text-bg-{{ current_reservation.status.color }}">{{ current_reservation.status.name }}</span>
+                                        </div>
+                                        {% if current_reservation.status == status.PAID %}
+                                            <small class="text-muted">обработка заявки проходит 1-2 дня</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+                                        <span>Количество мест:</span>
+                                        <span>{{ current_reservation.reservations }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+                                        <span>Дни тура:</span>
+                                        {{ tour_days(current_reservation.offer_starting_at, current_reservation.offer_ending_at) }}
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+                                        <span>Итоговая сумма:</span>
+                                        <span class="fs-4">{{ price(current_reservation.reservations * current_reservation.offer_price) }}</span>
+                                    </li>
+                                </ul>
+                                <form class="d-flex justify-content-end align-items-center mt-3"
+                                      method="post"
+                                      action="{{ url_for('reservations.change_status', id_=current_reservation.id, redirect=request.path) }}">
+                                    <div class="d-flex flex-column">
+                                        <button class="btn btn-{{ status.CANCELED.color }}" type="submit"
+                                                name="status"
+                                                value="{{ status.CANCELED.id }}">
+                                            Отменить
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% if past_reservations %}
+                    <h4 class="mb-3">История</h4>
+                    {% for past_reservation in past_reservations %}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <a class="link-dark card-title fs-5"
+                                       href="{{ url_for('offers.offer_by_id', id_=past_reservation.offer_id) }}">{{ past_reservation.tour_name }}</a>
+                                    <div class="d-flex flex-column">
+                                        <div>
+                                            <span class="float-end badge text-bg-{{ past_reservation.status.color }}">{{ past_reservation.status.name }}</span>
+                                        </div>
+                                        {% if past_reservation.status == status.CANCELED or past_reservation.status == status.REFUSED %}
+                                            <small class="text-muted">деньги на ваш счет вернутся в течение 1-3
+                                                дней</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+                                        <span>Количество мест:</span>
+                                        <span>{{ past_reservation.reservations }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+                                        <span>Дни тура:</span>
+                                        {{ tour_days(past_reservation.offer_starting_at, past_reservation.offer_ending_at) }}
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+                                        <span>Итоговая сумма:</span>
+                                        <span class="fs-4">{{ price(past_reservation.reservations * past_reservation.offer_price) }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            {% if past_reservation.review_created_at %}
+                                <div class="card card-body m-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            {% if past_reservation.review_comment %}
+                                                Оставленный отзыв:
+                                            {% else %}
+                                                Оставленная оценка:
+                                            {% endif %}
+                                        </div>
+                                        <div>{{ tour_rating(past_reservation.review_rating) }}</div>
+                                    </div>
+                                    {% if past_reservation.review_comment %}
+                                        <p class="mt-2 mb-2">{{ past_reservation.review_comment }}</p>
+                                    {% endif %}
+                                </div>
+                            {% elif past_reservation.status == status.ACCEPTED %}
+                                <form class="card card-body m-3" method="post" action="{{ url_for('reviews.create') }}">
+                                    <input hidden name="reservationId" value="{{ past_reservation.id }}">
+                                    <label class="mb-2"
+                                           for="reservationComment{{ past_reservation.id }}">Комментарий</label>
+                                    <textarea id="reservationComment{{ past_reservation.id }}"
+                                              class="form-control mb-3"
+                                              name="comment"
+                                              rows="3"></textarea>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex">
+                                            <label class="form-label d-flex align-items-center me-3 range-label"
+                                                   for="reservationRating{{ past_reservation.id }}">Оценка:
+                                                <output id="reservationRatingValue{{ past_reservation.id }}"
+                                                        class="ms-1">10
+                                                </output>
+                                                <img class="ms-1"
+                                                     src="{{ url_for('static', filename='images/star.svg') }}"
+                                                     alt=""
+                                                     width="16">
+                                            </label>
+
+                                            <input id="reservationRating{{ past_reservation.id }}"
+                                                   class="form-range range"
+                                                   type="range"
+                                                   name="rating"
+                                                   min="1"
+                                                   max="10"
+                                                   step="1"
+                                                   value="10"
+                                                   oninput="document.getElementById('reservationRatingValue{{ past_reservation.id }}').value = this.value">
+                                        </div>
+                                        <button class="btn btn-success" type="submit" name="submit">Отправить</button>
+                                    </div>
+                                </form>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% if not current_reservations and not past_reservations %}
+                    <div class="d-flex justify-content-center align-items-center">
+                        <p class="m-0 fs-1 me-3 text-center">У вас пока нет бронирований</p>
+                        <img src="{{ url_for('static', filename='images/sad-smiley.svg') }}" alt="" width="300">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

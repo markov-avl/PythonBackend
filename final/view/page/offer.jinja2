@@ -19,9 +19,10 @@
         <h2 class="pt-2 pb-2 m-0">{{ offer.name }}</h2>
 
         <div class="d-flex justify-content-between ms-0 me-0 m-auto pb-3 mt-3 gap-5">
-            <form class="d-flex flex-column w-25 gap-2" method="post">
-                {% if offer.available_reservations %}
+            <form class="d-flex flex-column w-25 gap-2" action="{{ url_for('reservations.create') }}" method="post">
+                {% if offer.available_reservations and offer.starting_at > now %}
                     {{ available_reservations_slider(1, offer.available_reservations, form.available_reservations, offer.price) }}
+                    <input hidden name="offerId" value="{{ offer.id }}">
                     <div class="d-flex justify-content-between">
                         <h5 class="m-0">Сумма:</h5>
                         <h4 class="m-0">
@@ -29,7 +30,7 @@
                         </h4>
                     </div>
                     {% if session['login'] %}
-                        <button class="btn btn-success">Забронировать</button>
+                        <button class="btn btn-success">Купить</button>
                     {% else %}
                         <div class="alert alert-warning text-center" role="alert">
                             Для бронирования Вам необходимо войти в аккаунт
@@ -39,6 +40,10 @@
                         <a class="btn btn-success"
                            href="{{ url_for('security.register', redirect=request.path) }}">Регистрация</a>
                     {% endif %}
+                {% elif not offer.available_reservations %}
+                    <div class="alert alert-warning text-center" role="alert">
+                        Нет свободных мест
+                    </div>
                 {% else %}
                     <div class="alert alert-warning text-center" role="alert">
                         Предложение не является активным

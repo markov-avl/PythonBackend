@@ -23,7 +23,7 @@ def query2(con: sqlite3.Connection) -> None:
     print(pd.read_sql("""
         SELECT t.name AS 'Название тура', o.price AS 'Цена тура'
         FROM tour t
-            INNER JOIN offer o ON t.id = o.tour_id
+            INNER JOIN offers o ON t.id = o.tour_id
             INNER JOIN reservation r ON o.id = r.offer_id
             INNER JOIN review r2 ON r.id = r2.reservation_id AND r2.rating = 1
         ORDER BY o.price DESC
@@ -37,7 +37,7 @@ def query3(con: sqlite3.Connection) -> None:
     print(pd.read_sql("""
         SELECT t.name AS 'Название тура', AVG(r2.rating) AS 'Средняя оценка'
         FROM tour t
-            LEFT JOIN offer o on t.id = o.tour_id
+            LEFT JOIN offers o on t.id = o.tour_id
             LEFT JOIN reservation r on o.id = r.offer_id
             LEFT JOIN review r2 on r.id = r2.reservation_id
         GROUP BY t.id
@@ -101,8 +101,8 @@ def query8(con: sqlite3.Connection) -> None:
     Уменьшить все цены на предложения на 1000 рублей.
     """
     con.execute("""
-        UPDATE offer
-        SET offer.price = offer.price - 1000
+        UPDATE offers
+        SET offers.price = offers.price - 1000
     """)
 
 

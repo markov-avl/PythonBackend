@@ -21,8 +21,14 @@
                         </a>
                         <ul class="dropdown-menu w-100" aria-labelledby="dropdown">
                             <li>
-                                <a class="dropdown-item" href="{{ url_for('index.index') }}">Профиль{{ width }}</a>
+                                <a class="dropdown-item" href="{{ url_for('profile.index') }}">Профиль{{ width }}</a>
                             </li>
+                            {% if session['is_admin'] %}
+                                <li>
+                                    <a class="dropdown-item"
+                                       href="{{ url_for('reservations.pending') }}">Заявки</a>
+                                </li>
+                            {% endif %}
                             <li>
                                 <div class="dropdown-divider"></div>
                             </li>

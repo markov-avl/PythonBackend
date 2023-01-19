@@ -5,4 +5,8 @@ from .difficulty_repository import DifficultyRepository
 from .difficulty_counter_repository import DifficultyCounterRepository
 from .offer_preview_repository import OfferPreviewRepository
 from .offer_detailed_info_repository import OfferDetailedInfoRepository
+from .review_repository import ReviewRepository
 from .review_detailed_info_repository import ReviewDetailedInfoRepository
+from .reservation_detailed_info_repository import ReservationDetailedInfoRepository
+from .reservation_repository import ReservationRepository
+from .reservation_pending_repository import ReservationPendingRepository

@@ -17,5 +17,8 @@ if __name__ == '__main__':
     app.register_blueprint(home_blueprint)
     app.register_blueprint(security_blueprint)
     app.register_blueprint(offer_blueprint)
+    app.register_blueprint(profile_blueprint)
+    app.register_blueprint(review_blueprint)
+    app.register_blueprint(reservations_blueprint)
 
     app.run(debug=True)

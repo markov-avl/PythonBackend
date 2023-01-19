@@ -1,0 +1,1 @@
+{% macro phone(number) %}+{{ (number|string)[0] }} ({{ (number|string)[1:4] }}) {{ (number|string)[4:7] }}-{{ (number|string)[7:9] }}-{{ (number|string)[9:] }}{% endmacro %}

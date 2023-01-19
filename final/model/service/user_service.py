@@ -14,7 +14,7 @@ class UserService:
             raise ValueError('Пользователь с таким логином уже существует')
         if self.get_by_phone(phone):
             raise ValueError('Пользователь с таким номером телефона уже существует')
-        return self._user_repository.create(login, password, full_name, phone, Role.USER)
+        return self._user_repository.create(login, password, full_name, phone, int(Role.USER))
 
     def get_by_identifier_and_password(self, identifier: str, password: str) -> User | None:
         try:

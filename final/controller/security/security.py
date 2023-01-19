@@ -6,6 +6,7 @@ from final.controller.security.login_form import LoginForm
 from final.controller.security.register_form import RegisterForm
 from final.model import UserService
 from final.model.entity import User
+from final.model.role import Role
 
 blueprint = Blueprint('security', __name__)
 user_service = UserService()
@@ -56,9 +57,11 @@ def save_session(user: User) -> None:
     session['id'] = user.id
     session['login'] = user.login
     session['full_name'] = user.full_name
+    session['is_admin'] = user.role is Role.ADMIN
 
 
 def delete_session() -> None:
     session.pop('id', None)
     session.pop('login', None)
     session.pop('full_name', None)
+    session.pop('is_admin', None)

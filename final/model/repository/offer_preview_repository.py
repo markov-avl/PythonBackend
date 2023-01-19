@@ -39,7 +39,7 @@ class OfferPreviewRepository(Repository):
                  available_reservations AS (SELECT o.id     AS offer_id,
                                                    o.max_reservations -
                                                    SUM(CASE
-                                                           WHEN r.status = 1
+                                                           WHEN r.status IN (1, 4)
                                                                THEN r.reservations
                                                            ELSE 0
                                                        END) AS available_reservations

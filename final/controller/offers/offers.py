@@ -1,7 +1,9 @@
-from flask import render_template, Blueprint, request, abort
+import datetime
 
-from .reservation_form import ReservationForm
+from flask import render_template, Blueprint, abort
+
 from final.controller.method import Method
+from final.controller.reservations import ReservationForm
 from final.model import OfferService, DifficultyService, ReviewService
 
 blueprint = Blueprint('offers', __name__)
@@ -28,5 +30,6 @@ def offer_by_id(id_: int):
         form=form,
         offer=offer,
         reviews=reviews,
-        max_difficulty_rating=max(difficulty_ratings) if difficulty_ratings else None
+        max_difficulty_rating=max(difficulty_ratings) if difficulty_ratings else None,
+        now=datetime.datetime.now()
     )

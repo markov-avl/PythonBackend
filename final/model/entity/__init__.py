@@ -6,3 +6,7 @@ from .difficulty_counter import DifficultyCounter
 from .offer_preview import OfferPreview
 from .offer_detailed_info import OfferDetailedInfo
 from .review_detailed_info import ReviewDetailedInfo
+from .reservation_detailed_info import ReservationDetailedInfo
+from .reservation import Reservation
+from .review import Review
+from .reservation_pending import ReservationPending

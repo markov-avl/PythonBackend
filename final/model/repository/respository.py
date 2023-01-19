@@ -22,6 +22,11 @@ class Repository(ABC):
         with get_connection() as connection:
             return connection.cursor().execute(sql, parameters).lastrowid
 
+    @staticmethod
+    def _execute(sql: str, parameters: tuple = tuple()) -> None:
+        with get_connection() as connection:
+            connection.cursor().execute(sql, parameters)
+
     def _map_optional(self, data: tuple | None) -> any:
         return self._entity(*data) if data else None
 

@@ -1,0 +1,71 @@
+{% extends 'base.jinja2' %}
+{% from 'component/header.jinja2' import header %}
+{% from 'component/photo_carousel.jinja2' import photo_carousel %}
+{% from 'component/available_reservations_slider.jinja2' import available_reservations_slider %}
+{% from 'component/tour_days.jinja2' import tour_days %}
+{% from 'component/tour_rating.jinja2' import tour_rating %}
+{% from 'component/price.jinja2' import price %}
+{% from 'component/phone.jinja2' import phone %}
+
+{% block title %}
+    Заявки
+{% endblock %}
+
+{% block body %}
+    {{ header() }}
+
+    <div class="m-auto d-flex flex-column justify-content-center centered">
+        <div class="d-flex flex-column justify-content-between ms-0 me-0 m-auto pb-3 mt-3 gap-2">
+            {% if reservations %}
+                <h4 class="text-center">Необработанные заявки</h4>
+                {% for reservation in reservations %}
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a class="link-dark card-title fs-5 mb-0"
+                                   href="{{ url_for('offers.offer_by_id', id_=reservation.offer_id) }}">{{ reservation.tour_name }}</a>
+                                <form method="post"
+                                      action="{{ url_for('reservations.change_status', id_=reservation.id, redirect=request.path) }}">
+                                    <button class="btn btn-{{ status.ACCEPTED.color }}" type="submit" name="status" value="{{ status.ACCEPTED.id }}">
+                                        Подтвердить
+                                    </button>
+                                    <button class="btn btn-{{ status.REFUSED.color }}" type="submit" name="status" value="{{ status.REFUSED.id }}">
+                                        Отклонить
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+                                    <span>Количество мест:</span>
+                                    <span>{{ reservation.reservations }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+                                    <span>Дни тура:</span>
+                                    {{ tour_days(reservation.offer_starting_at, reservation.offer_ending_at) }}
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+                                    <span>Итоговая сумма:</span>
+                                    <span class="fs-4">{{ price(reservation.reservations * reservation.offer_price) }}</span>
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+                                    <span>Полное имя клиента:</span>
+                                    <span>{{ reservation.user_full_name }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+                                    <span>Телефон клиента:</span>
+                                    <span>{{ phone(reservation.user_phone) }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h4 class="m-0 me-3 text-center">Нет необработанных заявок!</h4>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
