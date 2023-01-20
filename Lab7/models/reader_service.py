@@ -31,7 +31,8 @@ class ReaderService(Service):
 
     def add_reader(self, reader_name: str) -> int:
         sql = '''
-            INSERT INTO reader (reader_name) VALUES (?)
+            INSERT INTO reader (reader_name)
+            VALUES (?)
         '''
         return self._insert(sql, (reader_name,))
 
@@ -49,7 +50,7 @@ class ReaderService(Service):
             FROM book_reader
             WHERE book_reader_id = ?
         '''
-        book_id = self._fetchone(sql, (book_reader_id,))[0][0]
+        book_id = self._fetchone(sql, (book_reader_id,))[0]
         self._inc_available_numbers(book_id)
 
         sql = '''

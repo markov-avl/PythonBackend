@@ -11,17 +11,17 @@
         </tr>
         <tbody>
 
-        {% for i in range(len(data)) %}
+        {% for record in data %}
             <tr>
-                {% for record in data %}
+                {% for i in range(len(header)) %}
                     <td>
-                        {% if not data[i][3] %}
+                        {% if header[i] == 'Дата возврата' and not record[i] %}
                             <form action="" method="get">
-                                <input type="hidden" name="return" value="{{ data[i][4] }}">
+                                <input type="hidden" name="return" value="{{ record[4] }}">
                                 <input type="submit" value="Сдать">
                             </form>
                         {% else %}
-                            {{ data[i][3] }}
+                            {{ record[i] }}
                         {% endif %}
                     </td>
                 {% endfor %}
@@ -32,44 +32,47 @@
 {% endmacro %}
 
 {% macro render_readers(readers, reader_id, len) %}
-    <select name="reader" required>
-        {% for reader in readers %}
-            <option value="{{ reader[0] }}"
-                    {% if reader[0] == reader_id %}selected{% endif %}>{{ reader[1] }}</option>
-        {% endfor %}
-    </select>
+    <label>
+        Читатель:
+        <select name="reader" required>
+            {% for reader in readers %}
+                <option value="{{ reader[0] }}"
+                        {% if reader[0] == reader_id %}selected{% endif %}>{{ reader[1] }}</option>
+            {% endfor %}
+        </select>
+    </label>
 {% endmacro %}
 
-{% macro render_filters(name, categories, selected, len) %}
+{% macro render_filters(name, names, filters, selected_filters, len) %}
     <fieldset>
         <legend>{{ name }}</legend>
-        {% for category in categories %}
+        {% for filter in filters %}
             <div class="checkbox-wrapper">
                 <input type="checkbox"
-                       name="{{ categories[0] }}"
-                       value="{{ categories[i][categories[0]] }}"
-                       {% if id_r in selected %}checked{% endif %}>
+                       name="{{ names[0] }}"
+                       value="{{ filter[0] }}"
+                       {% if filter[0] in selected_filters %}checked{% endif %}>
                 <label>
-                    {{ categories[i][categories[1]] }} ({{ categories[i][categories[2]] }})
+                    {{ filter[1] }} ({{ filter[2] }})
                 </label>
             </div>
         {% endfor %}
     </fieldset>
 {% endmacro %}
 
-{% macro render_cards(card, len) %}
-    {% for i in range(len(card)) %}
+{% macro render_cards(cards, names, len) %}
+    {% for card in cards %}
         <div class="card">
-            {% for name in card %}
-                <p>{{ name }}: <b>{{ card[i][name] }}</b></p>
+            {% for i in range(len(names)) %}
+                <p>{{ names[i] }}: <b>{{ card[i] }}</b></p>
             {% endfor %}
             <div class="button-wrapper">
                 <form action="{{ url_for('index.index') }}" method="get">
                     <input type="submit"
                            value="Выбрать"
-                           {% if card[i]['Количество'] == 0 %}disabled{% endif %}>
+                           {% if card[5] == 0 %}disabled{% endif %}>
                     <label>
-                        <input hidden type="text" name="book" value="{{ card[i]['ID'] }}">
+                        <input type="hidden" name="book" value="{{ card[6] }}">
                     </label>
                 </form>
             </div>
@@ -77,17 +80,12 @@
     {% endfor %}
 {% endmacro %}
 
-{% macro render_selected(relation, sel, name, len) %}
-    {% if sel %}
+{% macro render_selected_filters(filters, selections, name, len) %}
+    {% if selections %}
         <p>{{ name }}:
-            {% for i in range(len(relation)) %}
-                {% set id_r = relation.loc[i, relation.columns[0]] %}
-                {% if id_r in sel %}
-                    {% if id_r == sel[-1] %}
-                        {{ relation.loc[i, relation.columns[1]] }}.
-                    {% else %}
-                        {{ relation.loc[i, relation.columns[1]] }},
-                    {% endif %}
+            {% for filter in filters %}
+                {% if filter[0] in selections %}
+                    {{ filter[1] }}{% if filter[0] != selections[-1] %},{% else %}.{% endif %}&nbsp;
                 {% endif %}
             {% endfor %}
         </p>

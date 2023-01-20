@@ -11,16 +11,15 @@
 {{ render_menu(0) }}
 <div class="block">
     <form action="" method="get">
-        Читатель: {{ render_readers(combo_box, reader_id, len) }}
+        {{ render_readers(combo_box, reader_id, len) }}
         <input type="submit" value="Найти">
     </form>
-
-    <!-- Пока страница не создана, не указывать ее в action -->
+    
     <form action="{{ url_for('new_reader.index') }}" method="get">
         <input type="submit" value="Новый читатель">
     </form>
 
-    {{ render_table('Карточка', ('Название', 'Авторы', 'Дата выдачи', 'Дата_возврата'), book_reader, 'book_reader_id', len) }}
+    {{ render_table('Карточка', ('Название', 'Авторы', 'Дата выдачи', 'Дата возврата'), book_reader, 'book_reader_id', len) }}
 
     <form action="{{ url_for('search.index') }}" method="get">
         <input type="submit" value="Взять книгу">

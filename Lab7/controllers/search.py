@@ -10,30 +10,30 @@ search_service = SearchService()
 
 @blueprint.route('/search', methods=[Method.GET, Method.POST])
 def index():
-    df_authors = search_service.get_authors()
-    df_publishers = search_service.get_publishers()
-    df_genres = search_service.get_genres()
+    authors = search_service.get_authors()
+    publishers = search_service.get_publishers()
+    genres = search_service.get_genres()
 
     if request.form.get('clear'):
-        genres = []
-        publishers = []
-        authors = []
+        selected_genres = []
+        selected_publishers = []
+        selected_authors = []
     else:
-        genres = list(map(int, request.form.getlist('genre_id')))
-        publishers = list(map(int, request.form.getlist('publisher_id')))
-        authors = list(map(int, request.form.getlist('author_id')))
+        selected_genres = list(map(int, request.form.getlist('genre_id')))
+        selected_publishers = list(map(int, request.form.getlist('publisher_id')))
+        selected_authors = list(map(int, request.form.getlist('author_id')))
 
-    df_card = search_service.card(publishers, genres, authors)
+    cards = search_service.get_cards(selected_genres, selected_publishers, selected_authors)
 
     html = render_template(
         'search.jinja2',
-        authors=df_authors,
-        publishers=df_publishers,
-        genres=df_genres,
-        card=df_card,
-        sel_authors=authors,
-        sel_publishers=publishers,
-        sel_genres=genres,
+        authors=authors,
+        publishers=publishers,
+        genres=genres,
+        cards=cards,
+        selected_authors=selected_authors,
+        selected_publishers=selected_publishers,
+        selected_genres=selected_genres,
         len=len
     )
     return html

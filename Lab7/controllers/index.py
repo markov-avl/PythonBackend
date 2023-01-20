@@ -28,7 +28,6 @@ def index():
     df_reader = reader_service.get_readers()
     df_book_reader = reader_service.get_reader_books(session['reader_id'])
 
-    # выводим форму
     html = render_template(
         'index.jinja2',
         reader_id=session['reader_id'],

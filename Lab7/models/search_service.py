@@ -4,7 +4,9 @@ from .service import Service
 class SearchService(Service):
     def get_publishers(self):
         sql = '''
-            SELECT publisher_id, publisher_name, COUNT(book.book_id)
+            SELECT publisher_id,
+                   publisher_name,
+                   COUNT(book.book_id)
             FROM publisher
                      JOIN book USING (publisher_id)
             GROUP BY publisher_name
@@ -34,19 +36,19 @@ class SearchService(Service):
         '''
         return self._fetchall(sql)
 
-    def card(self, publishers: list[int], genres: list[int], authors: list[int]):
+    def get_cards(self, publishers: list[int], genres: list[int], authors: list[int]):
         publishers = self.__convert(publishers)
         authors = self.__convert(authors)
         genres = self.__convert(genres)
 
         sql = f'''
-            SELECT title AS Название,
+            SELECT title                              AS Название,
                    group_concat(DISTINCT author_name) AS Авторы,
-                   genre_name AS Жанр,
-                   publisher_name AS Издательство,
-                   year_publication AS Год_издания,
-                   available_numbers AS Количество,
-                   book_id AS ID
+                   genre_name                         AS Жанр,
+                   publisher_name                     AS Издательство,
+                   year_publication                   AS Год_издания,
+                   available_numbers                  AS Количество,
+                   book_id                            AS ID
             FROM book
                      JOIN genre USING(genre_id)
                      JOIN publisher USING(publisher_id)

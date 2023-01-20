@@ -156,7 +156,7 @@
                                 </div>
                             {% elif past_reservation.status == status.ACCEPTED %}
                                 <form class="card card-body m-3" method="post" action="{{ url_for('reviews.create') }}">
-                                    <input hidden name="reservationId" value="{{ past_reservation.id }}">
+                                    <input type="hidden" name="reservationId" value="{{ past_reservation.id }}">
                                     <label class="mb-2"
                                            for="reservationComment{{ past_reservation.id }}">Комментарий</label>
                                     <textarea id="reservationComment{{ past_reservation.id }}"

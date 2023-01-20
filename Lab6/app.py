@@ -9,4 +9,4 @@ if __name__ == '__main__':
     app.register_blueprint(olimpiads_blueprint)
     app.register_blueprint(subject_bluprint)
 
-    app.run()
+    app.run(debug=True)

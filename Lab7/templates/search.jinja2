@@ -1,4 +1,4 @@
-{% from 'macros.jinja2' import render_filters, render_cards, render_selected %}
+{% from 'macros.jinja2' import render_filters, render_cards, render_selected_filters %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,25 +19,23 @@
 <div class="content">
     <div class="lists">
         <form action="" method="post">
-            {{ render_filters('Жанры', genres, sel_genres, len) }}
-            {{ render_filters('Авторы', authors, sel_authors, len) }}
-            {{ render_filters('Издательства', publishers, sel_publishers, len) }}
+            {{ render_filters('Жанры', ('genre_id', 'genre_name', 'count'), genres, selected_genres, len) }}
+            {{ render_filters('Авторы', ('author_id', 'author_name', 'count'), authors, selected_authors, len) }}
+            {{ render_filters('Издательства', ('publisher_id', 'publisher_name', 'count'), publishers, selected_publishers, len) }}
             <br>
             <input type="submit" value="Найти">
             <input type="submit" name="clear" value="Очистить">
         </form>
     </div>
     <div class="result">
-        <form action="{{ url_for('index.index') }}" method="get">
-            <input type="button" onclick="window.location='{{ url_for('index.index') }}'" value="Не выбирать книгу">
-        </form>
-        <div class="chosen">
-            {{ render_selected(genres, sel_genres, 'Жанры', len) }}
-            {{ render_selected(authors, sel_authors, 'Авторы', len) }}
-            {{ render_selected(publishers, sel_publishers, 'Издательства', len) }}
+        <a class="search-menu" type="button" href="{{ url_for('index.index') }}">Не выбирать книгу</a>
+        <div class="search-menu chosen">
+            {{ render_selected_filters(genres, selected_genres, 'Жанры', len) }}
+            {{ render_selected_filters(authors, selected_authors, 'Авторы', len) }}
+            {{ render_selected_filters(publishers, selected_publishers, 'Издательства', len) }}
         </div>
         <div class="cards">
-            {{ render_cards(card, len) }}
+            {{ render_cards(cards, ('Название', 'Авторы', 'Жанр', 'Издательство', 'Год издания', 'Количество', 'ID'), len) }}
         </div>
     </div>
 </div>

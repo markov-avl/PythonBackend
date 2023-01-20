@@ -5,33 +5,69 @@
     <title>Приветствие</title>
 </head>
 <body>
-<form action="{{ url_for('hello.index') }}" method="get">
-    <p>Имя: <input type=text name=username></p>
+<form action="{{ url_for('index.index') }}" method="get">
+    <p>Имя: <input type="text" name="username" value="{% if name %}{{ name }}{% endif %}"></p>
     <p>Пол:<br>
-        <input type=radio name=gender value=w>Ж<br>
-        <input type=radio name=gender value=m>M
+        <input type="radio" name="gender" value="w" {% if gender == 'w' %}checked{% endif %}>Ж<br>
+        <input type="radio" name="gender" value="m" {% if gender == 'm' %}checked{% endif %}>M
     </p>
     Образовательная программа:
-    <select name=program>
+    <select name="program">
         {% for i in range(len(program_list)) %}
-            <option value={{ i }}>{{ program_list[i] }}</option>
+            <option value="{{ i }}"
+                    {% if program_list[i] == program %}selected{% endif %}>{{ program_list[i] }}</option>
         {% endfor %}
     </select>
     <p>
         Выберите дисциплины, которые Вы изучаете:<br>
         {% for i in range(len(subject_list)) %}
-            <input type=checkbox name=subject[] value={{ i }}>
+            <input type="checkbox" name="subject" value="{{ i }}" {% if i in subject_selected_ids %}checked{% endif %}>
             {{ subject_list[i] }}<br>
         {% endfor %}
     </p>
     <p>
         Отметьте олимпиады и конкурсы, в которых Вы участвовали:<br>
         {% for i in range(len(olimpiad_list)) %}
-            <input type=checkbox name=olimpiads[] value={{ i }}>
+            <input type="checkbox" name="olimpiads" value="{{ i }}"
+                   {% if i in olimpiads_selected_ids %}checked{% endif %}>
             {{ olimpiad_list[i] }}<br>
         {% endfor %}
     </p>
-    <p><input type=submit value=Отправить></p>
+
+    <p>
+        <input type="submit" value="Отправить">
+        <input type="submit" name="clear" value="Очистить">
+    </p>
+
+    {% if name or gender or program or subjects_selected or olimpiads_selected %}
+        {% if name %}
+            <p>Привет {% if gender == 'm' or gender == None %}студент{% else %}студентка{% endif %}, {{ name }}!</p>
+        {% endif %}
+
+        {% if program %}
+            <p>Ваша образовательная программа: {{ program }}</p>
+        {% endif %}
+
+        {% if subjects_selected %}
+            <p>
+                Вы изучаете дисциплины:
+                {% for sub in subjects_selected %}
+                    <a href={{ url_for('subject.index', sub=sub) }}>{{ sub }}</a>
+                    {% if sub != subjects_selected[-1] %},{% endif %}
+                {% endfor %}
+            </p>
+        {% endif %}
+
+        {% if olimpiads_selected %}
+            <p>
+                Вы учавствовали в олимпиадах:
+                {% for olim in olimpiads_selected %}
+                    <a href={{ url_for('olimpiads.index', olim=olim) }}>{{ olim }}</a>
+                    {% if olim != olimpiads_selected[-1] %}, {% endif %}
+                {% endfor %}
+            </p>
+        {% endif %}
+    {% endif %}
 </form>
 </body>
 </html>
